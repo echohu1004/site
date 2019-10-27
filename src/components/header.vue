@@ -6,10 +6,13 @@
 			<el-breadcrumb-item>活动列表</el-breadcrumb-item>
 			<el-breadcrumb-item>活动详情</el-breadcrumb-item>
     	</el-breadcrumb>
-		<!-- <div class="hearder-userinfo">
-			<div class="username">您好，{{userName}}</div>
-			<div class="loginout" @click.prevent="logOut">退出</div>
-		</div> -->
+		<div class="hearder-userinfo">
+			<el-tooltip content="Left Center" placement="left" effect="light">
+				<img class="tip" src="../assets/question-circle-o@2x.png" alt="">
+			</el-tooltip>
+			<img class="avater" src="../assets/logo.png" alt="">
+			<div class="username">11111</div>
+		</div>
   	</div>
 </template>
 
@@ -61,16 +64,27 @@ export default {
 	box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.2);
 	.breadcrumb-title {
 		line-height: 64px;
-		font-size: 20px;
+		font-size: 16px;
 	}
   	.hearder-userinfo {
 		display: flex;
 		align-items: center;
 		padding: 0 20px;
 		color: #fff;
-    .username {
-      	margin-right: 32px;
-    }
+		.tip {
+			width: 16px;
+			height: 16px;
+		}
+		.avater {
+			display: block;
+			width: 30px;
+			height: 30px;
+			margin: 0 8px 0 20px ;
+			border-radius: 100%;
+		}
+		.username {
+			color: #000000;
+		}
     .loginout {
       	cursor: pointer;
     }

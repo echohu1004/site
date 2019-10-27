@@ -48,20 +48,37 @@
             </el-form>
             <el-table
             :data="tableData"
+            :header-cell-style="{background:'#FAFAFA',color:'#000000'}"
             style="width: 100%">
                 <el-table-column
                     prop="date"
-                    label="日期"
+                    label="序号"
                     width="180">
                 </el-table-column>
                 <el-table-column
                     prop="name"
-                    label="姓名"
+                    label="开始时间"
                     width="180">
                 </el-table-column>
                 <el-table-column
                     prop="address"
-                    label="地址">
+                    label="结束时间">
+                </el-table-column>
+                <el-table-column
+                    prop="address"
+                    label="所属公司">
+                </el-table-column>
+                <el-table-column
+                    prop="address"
+                    label="岗位">
+                </el-table-column>
+                <el-table-column
+                    prop="address"
+                    label="角色">
+                </el-table-column>
+                <el-table-column
+                    prop="address"
+                    label="日薪">
                 </el-table-column>
             </el-table>
             <div class="add-table">
@@ -159,7 +176,6 @@ export default {
                 }
             }
             .add-table {
-                width:1072px;
                 height:53px;
                 text-align: center;
                 line-height: 53px;

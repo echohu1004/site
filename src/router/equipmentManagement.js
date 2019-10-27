@@ -1,8 +1,8 @@
 const App = () => import('@/layout/AppSite.vue')
 const EquipmentManage = () => import('@/views/equipmentManagement/equipmentManage.vue')
-
+const EquipmentDetail = () => import('@/views/equipmentManagement/equipmentDetail.vue')
 export default {
-    path: '/equipmentManagement',
+    path: '/equipmentManage',
     component: App,
     redirect: '',
     meta: {
@@ -14,8 +14,8 @@ export default {
             component: EquipmentManage
         },
         {
-            path: '/equipmentManage',
-            component: EquipmentManage
+            path: '/equipmentDetail/:id',
+            component: EquipmentDetail
         }
     ]
 }

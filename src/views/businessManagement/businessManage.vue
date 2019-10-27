@@ -31,23 +31,25 @@
                     end-placeholder="结束日期">
                 </el-date-picker>
             </div>
-            <el-button type="primary">按钮</el-button>
+            <el-button type="primary">查询</el-button>
         </div>
         <div class="business-add">
             <el-button type="primary" icon="el-icon-plus">添加企业</el-button>
-            <div>共搜索到 922 条数据</div>
+            <div class="all-data">共搜索到 922 条数据</div>
         </div>
         <div class="business-table">   
             <div class="table-title">
-                <i class="el-icon-info"></i>
-                <span>已选择 4 项</span>
+                <img class="el-icon-info" src="../../assets/businessManage/！@2x.png" alt="">
+                <span>已选择<i>4</i>项</span>
                 <span>总计：100,000,000人</span>
                 <span>设备：20,000,000个</span>
                 <span>项目：20个</span>
-                <div>清空</div>
+                <div class="clear">清空</div>
             </div>
             <el-table
+                class="table-site"
                 ref="multipleTable"
+                :header-cell-style="{background:'#FAFAFA',color:'#000000'}"
                 :data="tableData"
                 tooltip-effect="dark"
                 style="width: 100%"
@@ -99,9 +101,9 @@
                     align="center">
                     <template slot-scope="scope">
                         <div>
-                            <el-button class="btn-action" @click="handleModify(scope.row)" type="text">查看</el-button>
-                            <el-button class="btn-action" @click="handleDelete(scope.row)" type="text">编辑</el-button>
-                            <el-button class="btn-action" @click="handleDelete(scope.row)" type="text">开启</el-button>
+                            <el-button class="btn-action" @click="handleView(scope.row)" type="text">查看</el-button>
+                            <el-button class="btn-action" @click="handleModify(scope.row)" type="text">编辑</el-button>
+                            <el-button class="btn-action" @click="handleSwitch(scope.row)" type="text">开启</el-button>
                         </div>
                     </template>
                 </el-table-column>
@@ -133,6 +135,9 @@ export default {
     },
     data() {
         return {
+            businessValue: '',
+            businessStatus: '',
+            businessTime: '',
             options: [{
                 value: 'TOP_NAVIGATION_BAR',
                 label: '顶部导航栏'
@@ -196,12 +201,25 @@ export default {
         },
         handleSelectionChange(val) {
             this.multipleSelection = val;
+        },
+        handleChangepage() {
+
+        },
+        handleView() {
+            this.$router.push({path: './businessDetail'})
+        },
+        handleModify(row) {
+            this.$router.push({path: `./businessDetail/${row.id}`})
+        },
+        handleSwitch() {
+
         }
     }
 }
 </script>
 
 <style lang="scss">
+    @import "@/common/scss/common.scss";
     .business-manage {
         padding: 20px;
         background-color: #ffffff;
@@ -209,29 +227,14 @@ export default {
             display: flex;
             .bus-header--input {
                 margin-right: 24px;
-                .el-input {
+                .el-input, .el-range-editor {
                     width: 224px;
-                    .el-input__inner {
-                        height: 32px;
-
-                    }
                 }
             }
         }
         .business-add {
             display: flex;
             padding: 20px 0;
-        }
-        .business-table {
-            .table-title {
-                display: flex;
-                align-items: center;
-                height: 40px;
-                padding: 0 16px;
-                background:rgba(230,247,255,1);
-                border-radius:4px;
-                border:1px solid rgba(186,231,255,1);
-            }
         }
         .el-pagebox {
             text-align: right;

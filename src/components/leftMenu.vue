@@ -46,19 +46,22 @@ export default {
                 {
                     parentName: "企业管理", 
                     child: [{
-                        name: "企业管理", url: "/accountIndex"
+                        name: "企业管理", url: "/businessManage"
                     }]
                 },
                 {
                     parentName: "设备管理", 
                     child: [{
-                        name: "设备管理", url: "/projectIndex"
+                        name: "设备管理", url: "/equipmentManage"
                     }]
                 },
                 {
                     parentName: "账户管理", 
                     child: [{
-                        name: "账户管理", url: "/accountIndex"
+                        name: "角色管理", url: "/roleManage",
+                    },
+                    {
+                        name: "账户管理", url: "/userManage"
                     }]
                 },
                 {

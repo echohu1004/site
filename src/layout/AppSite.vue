@@ -27,10 +27,12 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+	@import "@/common/scss/element-variables.scss";
 	.el-container{
 		height: 100%;
 		background-color: #f2f5f7;
+		font-size: 14px;
 	}
 	.el-header {
 		padding: 0!important;

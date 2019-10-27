@@ -1,66 +1,70 @@
 <template>
     <div class="equipment-manage">
         <div class="business-header">
-            <div class="bus-header--input">
-                设备标识：
-                <el-input
-                    class="search-input"
-                    v-model="businessValue"
-                    placeholder="请输入"
-                    clearable>
-                </el-input>
-            </div>
-            <div class="bus-header--input">
-                功能状态：
-                <el-select v-model="businessStatus" placeholder="请选择">
-                    <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                    </el-option>
-                </el-select>
-            </div>
-            <div class="bus-header--input">
-                更新时间：
-                <el-date-picker
-                    v-model="businessTime"
-                    type="daterange"
-                    range-separator="至"
-                    start-placeholder="开始日期"
-                    end-placeholder="结束日期">
-                </el-date-picker>
+            <div class="left">
+                <div class="bus-header--input">
+                    设备标识：
+                    <el-input
+                        class="search-input"
+                        v-model="businessValue"
+                        placeholder="请输入"
+                        clearable>
+                    </el-input>
+                </div>
+                <div class="bus-header--input">
+                    功能状态：
+                    <el-select v-model="businessStatus" placeholder="请选择">
+                        <el-option
+                        v-for="item in options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                        </el-option>
+                    </el-select>
+                </div>
+                <div class="bus-header--input">
+                    更新时间：
+                    <el-date-picker
+                        v-model="businessTime"
+                        type="daterange"
+                        range-separator="至"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期">
+                    </el-date-picker>
+                </div>
+                <div class="bus-header--input">
+                    归属状态：
+                    <el-select v-model="businessStatus" placeholder="请选择">
+                        <el-option
+                        v-for="item in options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                        </el-option>
+                    </el-select>
+                </div>
             </div>
             <el-button type="primary">按钮</el-button>
         </div>
         <div>
-            <div class="bus-header--input">
-                归属状态：
-                <el-select v-model="businessStatus" placeholder="请选择">
-                    <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                    </el-option>
-                </el-select>
-            </div>
+            
         </div>
         <div class="business-add">
             <el-button type="primary" icon="el-icon-plus">添加企业</el-button>
-            <div>共搜索到 922 条数据</div>
+            <div class="all-data">共搜索到 922 条数据</div>
         </div>
         <div class="business-table">   
             <div class="table-title">
-                <i class="el-icon-info"></i>
-                <span>已选择 4 项</span>
+                <img class="el-icon-info" src="../../assets/businessManage/！@2x.png" alt="">
+                <span>已选择<i>4</i>项</span>
                 <span>总计：100,000,000人</span>
                 <span>设备：20,000,000个</span>
                 <span>项目：20个</span>
-                <div>清空</div>
+                <div class="clear">清空</div>
             </div>
              <el-table
                 ref="multipleTable"
+                :header-cell-style="{background:'#FAFAFA',color:'#000000'}"
                 :data="tableData"
                 tooltip-effect="dark"
                 style="width: 100%"
@@ -70,36 +74,36 @@
                 width="55">
                 </el-table-column>
                 <el-table-column
-                label="企业ID"
+                label="设备ID"
                 width="120">
                 <template slot-scope="scope">{{ scope.row.date }}</template>
                 </el-table-column>
                 <el-table-column
                 prop="name"
-                label="公司名称"
+                label="设备名称"
                 width="120">
                 </el-table-column>
                 <el-table-column
                 prop="address"
-                label="企业规模"
-                sortable
-                show-overflow-tooltip>
+                label="关键唯一标识"
+                show-overflow-tooltip
+                >
                 </el-table-column>
                 <el-table-column
                 prop="address"
-                label="设备数量"
-                sortable
-                show-overflow-tooltip>
+                label="归属公司"
+                show-overflow-tooltip
+                >
                 </el-table-column>
                 <el-table-column
                 prop="address"
-                label="项目数量"
-                sortable
-                show-overflow-tooltip>
+                label="归属状态"
+                show-overflow-tooltip
+                >
                 </el-table-column>
                 <el-table-column
                 prop="address"
-                label="状态"
+                label="功能状态"
                 show-overflow-tooltip>
                 </el-table-column>
                 <el-table-column
@@ -112,9 +116,9 @@
                     align="center">
                     <template slot-scope="scope">
                         <div>
-                            <el-button class="btn-action" @click="handleModify(scope.row)" type="text">查看</el-button>
-                            <el-button class="btn-action" @click="handleDelete(scope.row)" type="text">编辑</el-button>
-                            <el-button class="btn-action" @click="handleDelete(scope.row)" type="text">开启</el-button>
+                            <el-button class="btn-action" @click="handleView(scope.row)" type="text">查看</el-button>
+                            <el-button class="btn-action" @click="handleModify(scope.row)" type="text">编辑</el-button>
+                            <el-button class="btn-action" @click="handleSwitch(scope.row)" type="text">开启</el-button>
                         </div>
                     </template>
                 </el-table-column>
@@ -124,7 +128,7 @@
                 <el-button @click="toggleSelection()">取消选择</el-button>
             </div>
         </div>
-        <el-pagination
+        <!-- <el-pagination
             class="el-pagebox"
             background
             layout="prev, pager, next"
@@ -132,7 +136,7 @@
             :current-page.sync="pagebox.currentpage"
             @current-change="handleChangepage"
             >
-        </el-pagination>
+        </el-pagination> -->
     </div>
 </template>
 
@@ -146,6 +150,9 @@ export default {
     },
     data() {
         return {
+            businessValue: '',
+            businessStatus: '',
+            businessTime: '',
             options: [{
                 value: 'TOP_NAVIGATION_BAR',
                 label: '顶部导航栏'
@@ -198,6 +205,15 @@ export default {
 
     },
     methods: {
+        handleView() {
+            this.$router.push({path: './equipmentManage'})
+        },
+        handleModify(row) {
+            this.$router.push({path: `./equipmentDetail/${row.id}`})
+        },
+        handleSwitch() {
+
+        },
         toggleSelection(rows) {
             if (rows) {
             rows.forEach(row => {
@@ -215,19 +231,23 @@ export default {
 </script>
 
 <style lang="scss">
+    @import "@/common/scss/common.scss";
     .equipment-manage {
         padding: 20px;
         background-color: #ffffff;
         .business-header {
             display: flex;
-            .bus-header--input {
-                margin-right: 24px;
-                .el-input {
-                    width: 224px;
-                    .el-input__inner {
-                        height: 32px;
-
+            .left {
+                display: flex;
+                flex-wrap: wrap;
+                .bus-header--input {
+                    margin-right: 10px;
+                    .el-input {
+                        width: 224px;
                     }
+                }
+                .bus-header--input:nth-child(4) {
+                    margin-top: 16px;
                 }
             }
         }

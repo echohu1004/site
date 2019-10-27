@@ -1,7 +1,7 @@
 <template>
-    <div class="business-detail">
+    <div class="equipment-detail">
         <div class="detail-header">
-            <span>企业基本信息</span>
+            <span>设备基本信息</span>
             <el-button type="primary">编辑</el-button>
             <div>
                 <el-button plain>取消</el-button>
@@ -11,39 +11,43 @@
         <div class="detail-form">
             <el-form :model="smsForm" status-icon :rules="rules" ref="smsForm" label-width="150px" class="smsConfig-ruleForm">
                 <div class="form">
-                    <el-form-item :prop="a" label="公司名称：">
+                    <el-form-item :prop="a" label="设备ID：">
                         <el-input v-model="a"></el-input>
                     </el-form-item>
-                    <el-form-item :prop="b" label="社会统一信用编码：">
+                    <el-form-item :prop="b" label="设备唯一标识码：">
                         <el-input v-model="b"></el-input>
                     </el-form-item>
                 </div>
                 <div class="form">
-                    <el-form-item :prop="c" label="联系人姓名：">
+                    <el-form-item :prop="c" label="设备别名：">
                         <el-input v-model="c"></el-input>
                     </el-form-item>
-                    <el-form-item :prop="d" label="联系人手机：">
+                    <el-form-item :prop="d" label="设备归属公司：">
                         <el-input v-model="d"></el-input>
+                    </el-form-item>
+                </div>
+                <div class="form">
+                    <el-form-item :prop="e" label="识别度：">
+                        <el-input v-model="e"></el-input>
+                    </el-form-item>
+                    <el-form-item :prop="f" label="设备归属项目：">
+                        <el-input v-model="f"></el-input>
+                    </el-form-item>
+                </div>
+                <div class="form">
+                    <el-form-item :prop="g" label="设备型号：">
+                        <el-input v-model="g"></el-input>
+                    </el-form-item>
+                    <el-form-item :prop="h" label="设备接入时间：">
+                        <el-input v-model="h"></el-input>
                     </el-form-item>
                 </div>
             </el-form>
         </div>
-        <div class="detail-upload">
-            <el-upload
-                action="https://jsonplaceholder.typicode.com/posts/"
-                list-type="picture-card"
-                :on-preview="handlePictureCardPreview"
-                :on-remove="handleRemove">
-                <i class="el-icon-plus"></i>
-            </el-upload>
-            <el-dialog :visible.sync="dialogVisible">
-                <img width="100%" :src="dialogImageUrl" alt="">
-            </el-dialog>
-        </div>
         <div class="detail-infobus">
-            <h1>业务信息</h1>
+            <h1>设备业务信息</h1>
             <el-tabs v-model="activeName" @tab-click="handleClick">
-                <el-tab-pane label="项目信息" name="first">
+                <el-tab-pane label="设备预留名单" name="first">
                     <el-table
                         class="table-site"
                         ref="multipleTable"
@@ -51,53 +55,30 @@
                         :data="tableData"
                         tooltip-effect="dark"
                         style="width: 100%"
-                        @selection-change="handleSelectionChange">
+                       >
                         <el-table-column
-                        label="项目ID"
+                        label="预留图片"
                         width="120">
                         <template slot-scope="scope">{{ scope.row.date }}</template>
                         </el-table-column>
                         <el-table-column
                         prop="name"
-                        label="项目名称"
+                        label="名单ID"
                         width="120">
                         </el-table-column>
                         <el-table-column
                         prop="address"
-                        label="负责人"
-                        sortable
-                        show-overflow-tooltip>
+                        label="姓名"
+                        >
                         </el-table-column>
                         <el-table-column
                         prop="address"
-                        label="项目地址"
-                        sortable
-                        show-overflow-tooltip>
-                        </el-table-column>
-                        <el-table-column
-                        prop="address"
-                        label="设备数"
-                        sortable
-                        show-overflow-tooltip>
-                        </el-table-column>
-                        <el-table-column
-                        prop="address"
-                        label="项目员工数"
-                        show-overflow-tooltip>
-                        </el-table-column>
-                        <el-table-column
-                        prop="address"
-                        label="开始打卡时间"
-                        show-overflow-tooltip>
-                        </el-table-column>
-                        <el-table-column
-                        prop="address"
-                        label="最后打卡时间"
-                        show-overflow-tooltip>
+                        label="备注信息"
+                        >
                         </el-table-column>
                     </el-table>
                 </el-tab-pane>
-                <el-tab-pane label="员工信息" name="second">配置管理</el-tab-pane>
+                <el-tab-pane label="读取数据记录" name="second">配置管理</el-tab-pane>
             </el-tabs>
         </div>
     </div>
@@ -113,12 +94,16 @@ export default {
     },
     data() {
         return {
+            smsForm: {},
+            rules: {},
             a: '',
             b: '',
             c: '',
             d: '',
-            dialogImageUrl: '',
-            dialogVisible: false,
+            e: '',
+            f: '',
+            g: '',
+            h: '',
             activeName: 'second',
             tableData: [{
             date: '2016-05-03',
@@ -158,13 +143,6 @@ export default {
 
     },
     methods: {
-        handleRemove(file, fileList) {
-            console.log(file, fileList);
-        },
-        handlePictureCardPreview(file) {
-            this.dialogImageUrl = file.url;
-            this.dialogVisible = true;
-        },
         handleClick(tab, event) {
             console.log(tab, event);
         }
@@ -173,7 +151,7 @@ export default {
 </script>
 
 <style lang="scss">
-    .business-detail {
+    .equipment-detail {
         padding: 20px;
         background-color: #ffffff;
         .detail-header {
@@ -204,9 +182,6 @@ export default {
                     width: 35%;
                 }
             }
-        }
-        .detail-upload {
-            padding: 0 0 32px 0;
         }
         .detail-infobus {
             h1 {
